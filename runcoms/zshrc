@@ -10,4 +10,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# I use git status way more than git stash, so override `gs` alias
+alias gs="git status"
+alias gaa="git add -all"
