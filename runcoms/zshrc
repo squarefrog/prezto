@@ -12,4 +12,5 @@ fi
 
 # I use git status way more than git stash, so override `gs` alias
 alias gs="git status"
-alias gaa="git add -all"
+alias gaa="git add --all"
+alias gd="git diff"
