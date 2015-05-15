@@ -72,3 +72,19 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+#
+# User customised exports
+#
+
+# Custom RubyGem global location
+export GEM_HOME=$HOME/.gem
+export PATH=$GEM_HOME/bin:$PATH
+
+# Link Homebrew casks in `/Applications` rather than `~/Applications`
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# OS X context colouring
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
