@@ -13,6 +13,7 @@ fi
 # I use git status way more than git stash, so override `gs` alias
 alias gs="git status"
 alias gaa="git add --all"
+alias gap="git add -p"
 alias gd="git diff"
 alias gdc="git diff --cached"
 
@@ -25,3 +26,17 @@ alias sd='fasd -sid'     # interactive directory selection
 alias sf='fasd -sif'     # interactive file selection
 alias z='fasd_cd -d'     # cd, same functionality as j in autojump
 alias zz='fasd_cd -d -i' # cd with interactive selection
+
+export LC_ALL=en_GB.UTF-8
+export LANG=en_GB.UTF-8
+
+function xc {
+  xcode_proj=`ls | grep "\.xc" | sort -r | head -1`
+  if [[ `echo -n $xcode_proj | wc -m` == 0 ]]
+  then
+    echo "No xcworkspace/xcodeproj file found in the current directory."
+  else
+    echo "Found $xcode_proj"
+    open "$xcode_proj"
+  fi
+}
