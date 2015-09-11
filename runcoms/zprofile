@@ -77,10 +77,6 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 # User customised exports
 #
 
-# Custom RubyGem global location
-export GEM_HOME=$HOME/.gem
-export PATH=$GEM_HOME/bin:$PATH
-
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
