@@ -84,3 +84,6 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
+# Path to dotfiles repo
+export DOTFILES="$(dirname $(readlink $HOME/.vimrc))"
+
