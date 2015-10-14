@@ -57,15 +57,17 @@ function update {
   GREEN='\033[0;32m'
   YELLOW='\033[0;33m'
   NC='\033[0m'
-  echo "${YELLOW}Updating dotfiles...${NC}\n"
+  echo "${YELLOW}Updating dotfiles...${NC}"
   pushd $DOTFILES > /dev/null 2>&1
-  if ! [[ `git pull` ]]; then
-    echo "\n${RED}Dotfiles:${NC} something went wrong"
+  OUTPUT=$(git pull)
+  if ! [[ OUTPUT != '' ]]; then
+    echo "\n${RED}Dotfiles:${NC} something went wrong:\n$OUTPUT"
     popd > /dev/null 2>&1
     return
   fi
-  if ! [[ `git submodule update --remote --recursive` ]]; then
-    echo "\n${RED}Prezto:${NC} something went wrong"
+  OUTPUT=$(git submodule update --remote --recursive)
+  if ! [[ OUTPUT != '' ]]; then
+    echo "\n${RED}Prezto:${NC} something went wrong:\n$OUTPUT"
     popd > /dev/null 2>&1
     return
   fi
