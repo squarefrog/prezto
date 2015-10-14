@@ -5,6 +5,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+DOTFILES_DIR="$(dirname $(readlink $HOME/.vimrc))"
+export DOTFILES=${DOTFILES_DIR}
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -47,4 +50,25 @@ function xc {
     echo "Found $xcode_proj"
     open "$xcode_proj"
   fi
+}
+
+function update {
+  RED='\033[0;31m'
+  GREEN='\033[0;32m'
+  YELLOW='\033[0;33m'
+  NC='\033[0m'
+  echo "${YELLOW}Updating dotfiles...${NC}\n"
+  pushd $DOTFILES > /dev/null 2>&1
+  if ! [[ `git pull` ]]; then
+    echo "\n${RED}Dotfiles:${NC} something went wrong"
+    popd > /dev/null 2>&1
+    return
+  fi
+  if ! [[ `git submodule update` ]]; then
+    echo "\n${RED}Prezto:${NC} something went wrong"
+    popd > /dev/null 2>&1
+    return
+  fi
+  echo "${GREEN}Done!${NC}"
+  popd > /dev/null 2>&1
 }
