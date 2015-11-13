@@ -57,20 +57,43 @@ function update {
   GREEN='\033[0;32m'
   YELLOW='\033[0;33m'
   NC='\033[0m'
-  echo "${YELLOW}Updating dotfiles...${NC}"
+  printf "${YELLOW}Updating dotfiles...${NC}"
   pushd $DOTFILES > /dev/null 2>&1
   OUTPUT=$(git pull)
   if ! [[ OUTPUT != '' ]]; then
-    echo "\n${RED}Dotfiles:${NC} something went wrong:\n$OUTPUT"
+    printf "\n${RED}Dotfiles:${NC} something went wrong:\n$OUTPUT"
     popd > /dev/null 2>&1
     return
+  else 
+    printf "\t${GREEN}[ok]${NC}"
   fi
+  printf "\n${YELLOW}Updating Prezto...${NC}"
   OUTPUT=$(git submodule update --remote --recursive)
   if ! [[ OUTPUT != '' ]]; then
-    echo "\n${RED}Prezto:${NC} something went wrong:\n$OUTPUT"
+    printf "\n${RED}Prezto:${NC} something went wrong:\n$OUTPUT"
     popd > /dev/null 2>&1
     return
+  else 
+    printf "\t${GREEN}[ok]${NC}"
   fi
-  echo "${GREEN}Done!${NC}"
+  printf "\n${YELLOW}Updating Homebrew...${NC}"
+  OUTPUT=$(brew update)
+  if ! [[ OUTPUT != '' ]]; then
+    printf "\n${RED}Update:${NC} something went wrong:\n$OUTPUT"
+    popd > /dev/null 2>&1
+    return
+  else 
+    printf "\t${GREEN}[ok]${NC}"
+  fi
+  printf "\n${YELLOW}Upgrading Homebrew...${NC}"
+  OUTPUT=$(brew upgrade)
+  if ! [[ OUTPUT != '' ]]; then
+    printf "\n${RED}Upgrade:${NC} something went wrong:\n$OUTPUT"
+    popd > /dev/null 2>&1
+    return
+  else 
+    printf "\t${GREEN}[ok]${NC}"
+  fi
+  printf "\n${GREEN}Done!${NC}\n"
   popd > /dev/null 2>&1
 }
