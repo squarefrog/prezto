@@ -68,7 +68,8 @@ function update {
     printf "\t${GREEN}[ok]${NC}"
   fi
   printf "\n${YELLOW}Updating Prezto...${NC}"
-  OUTPUT=$(git submodule update --remote --recursive)
+  # http://stackoverflow.com/a/18799234/816002
+  OUTPUT=$(git submodule foreach -q --recursive 'git checkout $(git config -f $toplevel/.gitmodules submodule.$name.branch || echo master)')
   if ! [[ OUTPUT != '' ]]; then
     printf "\n${RED}Prezto:${NC} something went wrong:\n$OUTPUT"
     popd > /dev/null 2>&1
