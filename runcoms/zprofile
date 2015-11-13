@@ -87,3 +87,5 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 # Path to dotfiles repo
 export DOTFILES="$(dirname $(readlink $HOME/.vimrc))"
 
+# Force tmux to use 256 colours
+alias tmux='tmux -2' 
